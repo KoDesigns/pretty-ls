@@ -14,3 +14,6 @@ A human-friendly and emoji-enhanced `ls` replacement for the terminal. This scri
 
 Install:
 - Paste into your config, pick correct file based on CLI
+
+Usage:
+- Write "pls" to use in folders
