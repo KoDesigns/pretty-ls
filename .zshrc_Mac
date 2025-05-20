@@ -1,0 +1,49 @@
+function pls() {
+  local folder_emoji="📁"
+  local file_emoji="📄"
+  local max_length=40
+
+  echo ""  # Top padding
+  printf "%-12s %-45s %10s   %s\n" "Type" "Name" "Size" "Modified"
+  printf "%s\n" "--------------------------------------------------------------------------------"
+
+  for entry in *; do
+    if [[ -d "$entry" ]]; then
+      type_label="${folder_emoji} Folder"
+      size="<DIR>"
+      color="36" # Cyan
+      mod_date=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$entry")
+    elif [[ -f "$entry" ]]; then
+      ext="${entry##*.}"
+      type_label="${file_emoji} ${ext:u}"
+
+      case "$ext" in
+        sh) color="32" ;;          # Green
+        txt) color="33" ;;         # Yellow
+        md) color="35" ;;          # Magenta
+        jpg|png|gif) color="34" ;; # Blue
+        exe|bat) color="31" ;;     # Red
+        *) color="0" ;;            # Default
+      esac
+
+      size=$(stat -f "%z" "$entry")
+      size=$(awk -v s=$size 'BEGIN { printf "%6.1f KB", s / 1024 }')
+      mod_date=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$entry")
+    else
+      continue  # Skip special files
+    fi
+
+    # Truncate long names
+    name="$entry"
+    if (( ${#name} > max_length )); then
+      name="${name:0:$((max_length - 1))}…"
+    fi
+
+    # Print with color
+    printf "\e[${color}m%-12s %-45s %10s   %s\e[0m\n" "$type_label" "$name" "$size" "$mod_date"
+  done
+
+  echo ""  # Bottom padding
+}
+
+alias pls=pls
