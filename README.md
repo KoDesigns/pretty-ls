@@ -12,3 +12,5 @@ A human-friendly and emoji-enhanced `ls` replacement for the terminal. This scri
   - ✅ macOS (Zsh) 
   - ✅ Windows (PowerShell)
 
+Install:
+- Paste into your config, pick correct file based on CLI
