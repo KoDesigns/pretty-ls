@@ -16,4 +16,4 @@ Install:
 - Paste into your config, pick correct file based on CLI
 
 Usage:
-- Write "pls" to use in folders
+- Write "pls" in terminal to use
