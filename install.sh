@@ -217,6 +217,11 @@ install_for_platform() {
         print_status "  $installer_url"
         exit 1
     fi
+    
+    # Final reminder about terminal restart
+    echo
+    print_status "💡 Remember: If 'pls' command is not immediately available,"
+    print_status "   restart your terminal or source your shell configuration file."
 }
 
 # Test network connectivity

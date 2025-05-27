@@ -453,6 +453,15 @@ main() {
     echo
     echo "🎉 Pretty-ls (pls) is now installed!"
     echo
+    
+    # Check if pls is immediately available
+    if ! command -v "$SCRIPT_NAME" >/dev/null 2>&1; then
+        echo "⚠️  IMPORTANT: To use 'pls' command, you need to:"
+        echo "   • Restart your terminal, OR"
+        echo "   • Run: source ~/.bashrc (or your shell config file)"
+        echo
+    fi
+    
     echo "Usage:"
     echo "  pls              # List current directory"
     echo "  pls /path/to/dir # List specific directory"
