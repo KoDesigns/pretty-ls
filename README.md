@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)]()
 [![Shell](https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20PowerShell-green.svg)]()
+[![Install](https://img.shields.io/badge/Install-curl%20%7C%20bash-brightgreen.svg)](#-quick-start)
 
 A human-friendly and emoji-enhanced `ls` replacement for the terminal. Pretty-ls provides a clean, colorful overview of your files and folders with intuitive icons, file type labels, human-readable sizes, and modification dates.
 
@@ -18,76 +19,95 @@ A human-friendly and emoji-enhanced `ls` replacement for the terminal. Pretty-ls
 - 🖥️ **Cross-Platform**: Works on macOS, Linux, and Windows
 - 🐚 **Multi-Shell**: Supports Bash, Zsh, Fish, and PowerShell
 - ⚡ **Fast**: Lightweight and responsive
-- 🔧 **Easy Installation**: One-command installation for each platform
+- 🔧 **Easy Installation**: One-command installation for all platforms
+
+## 🧪 Try Before Installing
+
+Want to see pretty-ls in action without installing? Run it directly:
+
+```bash
+# Unix/Linux/macOS
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/scripts/pls.sh | bash
+
+# Or download and test
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/scripts/pls.sh -o pls && chmod +x pls && ./pls
+```
+
+```powershell
+# Windows PowerShell
+iex (irm 'https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/scripts/pls.ps1')
+```
 
 ## 🚀 Quick Start
 
-### macOS
+### One-Command Installation
 ```bash
-curl -sSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash
 ```
 
-### Linux
+### Platform-Specific
 ```bash
-curl -sSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-linux.sh | bash
+# macOS
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-macos.sh | bash
+
+# Linux  
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-linux.sh | bash
 ```
 
-### Windows (PowerShell)
 ```powershell
-iwr -useb https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1 | iex
+# Windows PowerShell
+iex (irm 'https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1')
 ```
 
 ## 📦 Installation
 
 ### Prerequisites
+- **macOS**: macOS 10.12+, curl
+- **Linux**: Modern distro, curl, basic utilities (usually pre-installed)  
+- **Windows**: Windows 10+, PowerShell 5.1+
 
-#### macOS
-- macOS 10.12 or later
-- Bash 4.0+ or Zsh 5.0+
+### Installation Options
 
-#### Linux
-- Any modern Linux distribution
-- Bash 4.0+ or Zsh 5.0+
-- `coreutils` package (usually pre-installed)
-- `gawk` package (usually pre-installed)
+#### Web Installation (Recommended)
+```bash
+# Universal installer (detects your platform)
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash
 
-#### Windows
-- Windows 10 or later
-- PowerShell 5.1 or later (PowerShell Core 6+ recommended)
+# With options
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash -s -- --verbose
+```
 
-### Manual Installation
+#### Download and Run
+```bash
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh -o install.sh
+chmod +x install.sh
+./install.sh
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/KoDesigns/pretty-ls.git
-   cd pretty-ls
-   ```
+#### Manual Installation
+```bash
+git clone https://github.com/KoDesigns/pretty-ls.git
+cd pretty-ls
+./install/install-macos.sh  # or install-linux.sh, install-windows.ps1
+```
 
-2. **Run the appropriate installer:**
+### Installer Options
+- `--help`: Show help
+- `--verbose`: Detailed output  
+- `--force`: Force reinstall
+- `--uninstall`: Remove pretty-ls
 
-   **macOS:**
-   ```bash
-   ./install/install-macos.sh
-   ```
+### Troubleshooting
+```bash
+# Test connectivity
+curl -fsSL https://api.github.com
 
-   **Linux:**
-   ```bash
-   ./install/install-linux.sh
-   ```
+# Check PATH
+echo $PATH | grep -q "$HOME/.local/bin" && echo "✓ In PATH" || echo "✗ Not in PATH"
 
-   **Windows (PowerShell):**
-   ```powershell
-   .\install\install-windows.ps1
-   ```
-
-3. **Restart your terminal** or source your shell configuration:
-   ```bash
-   # For Bash
-   source ~/.bashrc
-   
-   # For Zsh
-   source ~/.zshrc
-   ```
+# Manual PATH setup (if needed)
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
 
 ## 🎯 Usage
 
@@ -151,6 +171,34 @@ Pretty-ls recognizes and color-codes various file types:
 - 🔴 **Executables** (.exe, .bin, .app) - Red
 - ⚪ **Other files** - Default color
 
+## 🗑️ Uninstallation
+
+To uninstall pretty-ls, use the same installer with the `--uninstall` flag:
+
+```bash
+# Universal uninstaller
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash -s -- --uninstall
+
+# Or run locally
+./install/install-macos.sh --uninstall
+```
+
+## 📁 Project Structure
+
+```
+pretty-ls/
+├── scripts/
+│   ├── pls.sh         # Main script for Unix/Linux
+│   └── pls.ps1        # Main script for Windows
+├── install/
+│   ├── install-macos.sh    # macOS installer
+│   ├── install-linux.sh    # Linux installer  
+│   └── install-windows.ps1 # Windows installer
+├── install.sh         # Universal installer (detects platform)
+├── README.md          # You are here
+└── INSTALL.md         # Detailed installation guide
+```
+
 ## 🛠️ Development
 
 ### Project Structure
@@ -163,6 +211,7 @@ pretty-ls/
 │   ├── install-macos.sh
 │   ├── install-linux.sh
 │   └── install-windows.ps1
+├── install.sh         # Universal installer
 ├── docs/             # Documentation
 ├── LICENSE           # Apache 2.0 License
 └── README.md         # This file
@@ -180,6 +229,7 @@ pretty-ls/
    ```bash
    chmod +x scripts/pls.sh
    chmod +x install/*.sh
+   chmod +x install.sh
    ```
 
 3. **Test the script:**
@@ -208,41 +258,69 @@ pretty-ls/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+Contributions are welcome! Here's how to get started:
 
-### Quick Contribution Guide
+```bash
+# 1. Fork and clone
+git clone https://github.com/yourusername/pretty-ls.git
+cd pretty-ls
 
-1. **Fork the repository**
-2. **Create a feature branch:** `git checkout -b feature/amazing-feature`
-3. **Make your changes**
-4. **Test thoroughly** on your platform
-5. **Commit your changes:** `git commit -m 'Add amazing feature'`
-6. **Push to the branch:** `git push origin feature/amazing-feature`
-7. **Open a Pull Request**
+# 2. Make your changes
+# Edit scripts/pls.sh or scripts/pls.ps1
 
-### Development Guidelines
+# 3. Test your changes
+./scripts/pls.sh  # Unix/Linux/macOS
+# or
+pwsh -File scripts/pls.ps1  # Windows
 
-- Follow existing code style and conventions
-- Add comments for complex logic
-- Test on multiple platforms when possible
-- Update documentation for new features
-- Ensure backward compatibility
+# 4. Submit a pull request
+```
+
+### What to contribute:
+- 🐛 **Bug fixes**: Fix issues or improve compatibility
+- ✨ **Features**: Add new functionality (keep it simple!)
+- 📚 **Documentation**: Improve README, add examples
+- 🧪 **Testing**: Test on different platforms/shells
+
+### Guidelines:
+- Keep changes simple and focused
+- Test on your platform before submitting
+- Follow existing code style
+- Update documentation if needed
 
 ## 📋 Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
 
+## ❓ FAQ
+
+**Q: Does pretty-ls replace the built-in `ls` command?**  
+A: No, it installs as `pls` so your original `ls` command remains unchanged.
+
+**Q: Can I use this without installing?**  
+A: Yes! See the "Try Before Installing" section above.
+
+**Q: What if I don't see emojis?**  
+A: Use a modern terminal (iTerm2, Windows Terminal, etc.) with emoji support.
+
+**Q: How do I uninstall?**  
+A: Run the installer with `--uninstall` flag or see the uninstallation section.
+
+**Q: Does this work in SSH/remote sessions?**  
+A: Yes, as long as your terminal supports the character encoding.
+
 ## 🐛 Issues and Support
 
-- **Bug Reports**: [GitHub Issues](https://github.com/KoDesigns/pretty-ls/issues)
-- **Feature Requests**: [GitHub Issues](https://github.com/KoDesigns/pretty-ls/issues)
-- **Questions**: [GitHub Discussions](https://github.com/KoDesigns/pretty-ls/discussions)
+**Found a bug or have a suggestion?**  
+[Create an issue](https://github.com/KoDesigns/pretty-ls/issues) on GitHub.
 
-When reporting issues, please include:
-- Operating system and version
-- Shell type and version
-- Steps to reproduce the issue
-- Expected vs actual behavior
+**Need help?**  
+Check the [troubleshooting section](#troubleshooting) or [installation guide](INSTALL.md).
+
+**Include when reporting issues:**
+- Your OS and shell (e.g., "macOS 13.1, zsh")
+- Error message (if any)
+- Steps to reproduce
 
 ## 📄 License
 

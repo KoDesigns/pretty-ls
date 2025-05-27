@@ -1,272 +1,148 @@
-# Installation Guide
-
-This guide provides detailed installation instructions for Pretty-ls on different platforms.
+# 📦 Pretty-ls Installation Guide
 
 ## 🚀 Quick Installation
 
-### One-Line Installation
-
-**macOS:**
+### Universal Installer (Recommended)
 ```bash
-curl -sSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash
 ```
 
-**Linux:**
+### Platform-Specific
 ```bash
-curl -sSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-linux.sh | bash
+# macOS
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-macos.sh | bash
+
+# Linux
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-linux.sh | bash
 ```
 
-**Windows (PowerShell):**
 ```powershell
-iwr -useb https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1 | iex
+# Windows PowerShell
+iex (irm 'https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1')
 ```
 
-## 📦 Manual Installation
+## 📋 Installation Methods
 
-### Step 1: Download
+### Method 1: Direct Web Installation
+```bash
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash
+```
 
-**Option A: Clone the repository**
+### Method 2: Download and Execute
+```bash
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh -o install.sh
+chmod +x install.sh
+./install.sh
+```
+
+### Method 3: Git Clone
 ```bash
 git clone https://github.com/KoDesigns/pretty-ls.git
 cd pretty-ls
+./install/install-macos.sh  # or install-linux.sh, install-windows.ps1
 ```
 
-**Option B: Download ZIP**
-1. Go to the [GitHub repository](https://github.com/KoDesigns/pretty-ls)
-2. Click "Code" → "Download ZIP"
-3. Extract the ZIP file
-4. Open terminal/PowerShell in the extracted folder
+## ⚙️ Installer Options
 
-### Step 2: Run Installer
+| Option | Description |
+|--------|-------------|
+| `--help` | Show help message |
+| `--verbose` | Enable detailed output |
+| `--debug` | Enable debug output (Unix/Linux only) |
+| `--force` | Force reinstallation |
+| `--uninstall` | Uninstall pretty-ls |
 
-**macOS:**
+### Examples
 ```bash
-chmod +x install/install-macos.sh
-./install/install-macos.sh
+# Verbose installation
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash -s -- --verbose
+
+# Force reinstall
+./install/install-linux.sh --force
+
+# Uninstall
+./install/install-macos.sh --uninstall
 ```
 
-**Linux:**
-```bash
-chmod +x install/install-linux.sh
-./install/install-linux.sh
-```
+## 🖼️ Windows PowerShell
 
-**Windows (PowerShell):**
+### Modern PowerShell (7+)
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-.\install\install-windows.ps1
+iex (irm 'https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1')
 ```
 
-### Step 3: Restart Terminal
+### Legacy PowerShell (5.1)
+```powershell
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install/install-windows.ps1'))
+```
 
-After installation, restart your terminal or source your shell configuration:
+## 📋 What the Installers Do
 
-**Bash:**
+1. **System Check**: Verify OS and dependencies
+2. **Download**: Get latest script from GitHub  
+3. **Install**: Place in `~/.local/bin` (or Windows equivalent)
+4. **Configure**: Update PATH and shell config
+5. **Test**: Verify installation works
+
+## 📍 Installation Locations
+
+| Platform | Directory | Script |
+|----------|-----------|--------|
+| macOS/Linux | `~/.local/bin/` | `pls` |
+| Windows | `%USERPROFILE%\.local\bin\` | `pls.ps1` |
+
+## 🛠️ Troubleshooting
+
+### Network Issues
 ```bash
+# Test GitHub connectivity
+curl -fsSL https://api.github.com
+```
+
+### PATH Issues
+```bash
+# Check if in PATH
+echo $PATH | grep -q "$HOME/.local/bin" && echo "✓ In PATH" || echo "✗ Not in PATH"
+
+# Add to PATH manually
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**Zsh:**
-```bash
-source ~/.zshrc
-```
-
-**PowerShell:**
-```powershell
-# Just restart PowerShell
-```
-
-## 🔧 Advanced Installation
-
-### Custom Installation Directory
-
-By default, Pretty-ls installs to `~/.local/bin` (Unix) or PowerShell modules directory (Windows). To install to a custom location:
-
-**Unix/Linux:**
-```bash
-# Edit the installer script and change INSTALL_DIR
-INSTALL_DIR="/usr/local/bin" ./install/install-macos.sh
-```
-
-### Development Installation
-
-For development or testing:
-
-```bash
-# Clone the repository
-git clone https://github.com/KoDesigns/pretty-ls.git
-cd pretty-ls
-
-# Make scripts executable
-chmod +x scripts/pls.sh
-
-# Test directly
-./scripts/pls.sh
-
-# Or create a symlink
-ln -s "$(pwd)/scripts/pls.sh" ~/.local/bin/pls
-```
-
-## 🐚 Shell-Specific Instructions
-
-### Bash
-
-The installer automatically detects Bash and updates `~/.bashrc` or `~/.bash_profile`.
-
-**Manual setup:**
-```bash
-# Add to ~/.bashrc
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-### Zsh
-
-The installer automatically detects Zsh and updates `~/.zshrc`.
-
-**Manual setup:**
-```bash
-# Add to ~/.zshrc
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-### Fish
-
-For Fish shell users on Linux:
-
-```fish
-# Add to ~/.config/fish/config.fish
-set -gx PATH $HOME/.local/bin $PATH
-```
-
-### PowerShell
-
-The installer creates a PowerShell module and updates your profile.
-
-**Manual setup:**
-```powershell
-# Check your profile location
-$PROFILE
-
-# Add to your profile
-Import-Module PrettyLs -Force
-```
-
-## 🔍 Verification
-
-After installation, verify that Pretty-ls is working:
-
-```bash
-# Check if command is available
-which pls
-# or
-command -v pls
-
-# Test the command
-pls --version
-pls --help
-pls
-```
-
-## 🚨 Troubleshooting
-
-### Command Not Found
-
-**Issue:** `pls: command not found`
-
-**Solutions:**
-1. Restart your terminal
-2. Check if `~/.local/bin` is in your PATH:
-   ```bash
-   echo $PATH | grep -o ~/.local/bin
-   ```
-3. Manually source your shell config:
-   ```bash
-   source ~/.zshrc  # or ~/.bashrc
-   ```
-
-### Permission Denied
-
-**Issue:** `Permission denied` when running installer
-
-**Solutions:**
-1. Make the installer executable:
-   ```bash
-   chmod +x install/install-macos.sh
-   ```
-2. Run with bash explicitly:
-   ```bash
-   bash install/install-macos.sh
-   ```
-
 ### PowerShell Execution Policy
-
-**Issue:** PowerShell won't run the installer
-
-**Solution:**
 ```powershell
+# Check policy
+Get-ExecutionPolicy
+
+# Allow scripts (if needed)
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-### Missing Dependencies (Linux)
-
-**Issue:** `stat: command not found` or similar
-
-**Solution:**
+### Manual Cleanup
 ```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install coreutils gawk
+# Remove script
+rm -f ~/.local/bin/pls
 
-# CentOS/RHEL
-sudo yum install coreutils gawk
-
-# Fedora
-sudo dnf install coreutils gawk
-
-# Arch
-sudo pacman -S coreutils gawk
+# Remove from shell config (edit manually)
+# ~/.bashrc, ~/.zshrc, ~/.config/fish/config.fish
 ```
-
-### Emoji Not Displaying
-
-**Issue:** Emojis show as boxes or question marks
-
-**Solutions:**
-1. Use a modern terminal emulator (iTerm2, Windows Terminal, etc.)
-2. Install emoji fonts on your system
-3. Check terminal encoding (should be UTF-8)
 
 ## 🗑️ Uninstallation
 
-### Remove Pretty-ls
-
-**Unix/Linux:**
 ```bash
-# Remove the binary
-rm ~/.local/bin/pls
+# Using installer
+curl -fsSL https://raw.githubusercontent.com/KoDesigns/pretty-ls/main/install.sh | bash -s -- --uninstall
 
-# Remove from shell config (manual)
-# Edit ~/.zshrc or ~/.bashrc and remove the PATH line
+# Manual removal
+rm -f ~/.local/bin/pls
+# Edit shell config to remove PATH modification
 ```
 
-**Windows:**
-```powershell
-# Remove the module
-Remove-Module PrettyLs
-$ModulePath = Join-Path $env:USERPROFILE "Documents\PowerShell\Modules\PrettyLs"
-Remove-Item $ModulePath -Recurse -Force
+## 🆘 Getting Help
 
-# Remove from profile (manual)
-# Edit your PowerShell profile and remove the Import-Module line
-```
-
-## 📞 Support
-
-If you encounter issues:
-
-1. Check this troubleshooting guide
-2. Search [existing issues](https://github.com/KoDesigns/pretty-ls/issues)
-3. Create a [new issue](https://github.com/KoDesigns/pretty-ls/issues/new) with:
-   - Your operating system and version
-   - Shell type and version
-   - Error messages
-   - Steps you tried 
+1. Run with `--verbose` for detailed output
+2. Check network connectivity to GitHub
+3. Verify prerequisites are installed
+4. Try manual installation method
+5. Report issues at: https://github.com/KoDesigns/pretty-ls 
